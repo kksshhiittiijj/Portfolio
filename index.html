@@ -1,0 +1,632 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Kshitij Srivastava | Full Stack Developer</title> <style> :root { --bg: #0f172a; --bg-alt: #020617; --card: #020617; --accent: #22c55e; --accent-soft: rgba(34, 197, 94, 0.1); --text: #e5e7eb; --muted: #9ca3af; --border: #1f2937; --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.75); --radius-lg: 18px; --radius-md: 12px; --radius-pill: 999px; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1e293b 0, #020617 42%, #020617 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding: 32px 16px;
+    }
+    
+    .page {
+      max-width: 1080px;
+      margin: 0 auto 40px auto;
+      border-radius: 32px;
+      padding: 28px 24px 40px 24px;
+      background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.08), transparent 55%),
+                  radial-gradient(circle at top right, rgba(59, 130, 246, 0.07), transparent 55%),
+                  linear-gradient(135deg, #020617 0%, #020617 35%, #020617 100%);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      backdrop-filter: blur(18px);
+    }
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+      padding-bottom: 18px;
+      margin-bottom: 28px;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: radial-gradient(circle at 30% 10%, #22c55e, transparent),
+                  radial-gradient(circle at 70% 70%, #22d3ee, transparent),
+                  #020617;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    
+    .logo-text span:first-child {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    
+    .logo-text span:last-child {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    
+    nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 0.82rem;
+    }
+    
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      padding: 6px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      transition: all 0.18s ease-out;
+    }
+    
+    nav a:hover {
+      border-color: rgba(148, 163, 184, 0.5);
+      color: var(--text);
+      background: rgba(15, 23, 42, 0.9);
+    }
+    
+    nav a.cta {
+      border-color: rgba(34, 197, 94, 0.7);
+      color: #bbf7d0;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.18), rgba(22, 163, 74, 0.25));
+      box-shadow: 0 0 0 1px rgba(22, 163, 74, 0.4), 0 0 25px rgba(22, 163, 74, 0.35);
+    }
+    
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(260px, 2fr);
+      gap: 24px;
+    }
+    
+    @media (max-width: 900px) {
+      .page {
+        padding: 20px 16px 32px 16px;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      nav {
+        display: none;
+      }
+      body {
+        padding: 20px 10px;
+      }
+      .page {
+        border-radius: 20px;
+      }
+    }
+    
+    .hero-card {
+      background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.16), transparent 65%),
+                  linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.94));
+      border-radius: var(--radius-lg);
+      padding: 22px 20px 20px 20px;
+      border: 1px solid rgba(148, 163, 184, 0.32);
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    
+    .hero-tag-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.28);
+    }
+    
+    .hero-title {
+      font-size: 1.8rem;
+      letter-spacing: -0.03em;
+      font-weight: 650;
+      margin-bottom: 6px;
+    }
+    
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: #e5e7eb;
+      max-width: 36rem;
+      margin-bottom: 14px;
+    }
+    
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.95);
+    }
+    
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+      border-radius: var(--radius-pill);
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.18s ease-out;
+      background: transparent;
+      color: var(--text);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      border-color: rgba(21, 128, 61, 0.9);
+      color: #022c22;
+      font-weight: 600;
+      box-shadow: 0 13px 30px rgba(22, 163, 74, 0.45);
+    }
+    
+    .btn-primary:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+    }
+    
+    .btn-secondary {
+      border-color: rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--muted);
+    }
+    
+    .btn-secondary:hover {
+      border-color: rgba(148, 163, 184, 0.9);
+      color: var(--text);
+    }
+    
+    .section-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .card {
+      background: radial-gradient(circle at top left, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.98));
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(15, 23, 42, 0.9);
+      padding: 16px 16px 14px 16px;
+      margin-bottom: 14px;
+    }
+    
+    .card + .card {
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+    }
+    
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    
+    .pill {
+      font-size: 0.76rem;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.98);
+    }
+    
+    .pill.highlight {
+      border-color: rgba(34, 197, 94, 0.7);
+      background: rgba(22, 163, 74, 0.12);
+      color: #bbf7d0;
+    }
+    
+    .text-muted {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    
+    .text-small {
+      font-size: 0.82rem;
+    }
+    
+    ul {
+      list-style: none;
+      margin-top: 6px;
+    }
+    
+    li {
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 4px;
+      font-size: 0.86rem;
+    }
+    
+    li::before {
+      content: "- ";
+      position: absolute;
+      left: 5px;
+      top: 0;
+      color: var(--accent);
+      font-size: 0.7rem;
+    }
+    
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    
+    .sidebar-card {
+      background: radial-gradient(circle at top right, rgba(34, 197, 94, 0.14), transparent 60%),
+                  linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.98));
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      padding: 14px 14px 12px 14px;
+    }
+    
+    .sidebar-card h3 {
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+    
+    .sidebar-card .text-small {
+      margin-bottom: 6px;
+    }
+    
+    .timeline-item {
+      padding: 8px 0;
+      border-bottom: 1px dashed rgba(55, 65, 81, 0.85);
+    }
+    
+    .timeline-item:last-child {
+      border-bottom: none;
+    }
+    
+    .timeline-role {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    
+    .timeline-company {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    
+    .timeline-meta {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+    }
+    
+    .contact-item {
+      padding: 8px 10px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      background: rgba(15, 23, 42, 0.96);
+      font-size: 0.82rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    
+    .contact-label {
+      color: var(--muted);
+      font-size: 0.76rem;
+    }
+    
+    .contact-value a {
+      color: #e5e7eb;
+      text-decoration: none;
+    }
+    
+    .contact-value a:hover {
+      text-decoration: underline;
+    }
+    
+    footer {
+      margin-top: 10px;
+      font-size: 0.76rem;
+      color: var(--muted);
+      text-align: right;
+    }
+    </style> </head> <body> <div class="page"> <header> <div class="logo"> <div class="logo-mark">KS</div> <div class="logo-text"> <span>Kshitij Srivastava</span> <span>Full Stack Software Developer</span> </div> </div> <nav> <a href="#about">About</a> <a href="#skills">Skills</a> <a href="#experience">Experience</a> <a href="#projects">Projects</a> <a href="#contact" class="cta">Contact</a> </nav> </header>
+    <main>
+      <section>
+        <!-- HERO -->
+        <div class="hero-card">
+          <div class="hero-tag">
+            <span class="hero-tag-dot"></span>
+            <span>Open to backend & full stack roles</span>
+          </div>
+          <h1 class="hero-title">Building reliable Java + Angular applications for the real world.</h1>
+          <p class="hero-subtitle">
+            Software Engineer with ~10 months of experience working on prepaid card payments at LTIMindtree for Nexi Payments.
+            Focused on clean, maintainable backend services and clear admin UIs.
+          </p>
+          <div class="hero-meta">
+            <span>📍 Mumbai · from Varanasi, India</span>
+            <span>⚙ Java · Spring Boot · Angular · MySQL</span>
+            <span>🏦 BFSI · Payments · Event-driven systems</span>
+          </div>
+          <div class="hero-actions">
+            <a href="#projects" class="btn-primary">View projects</a>
+            <a href="#contact" class="btn-secondary">Download resume</a>
+          </div>
+        </div>
+    
+        <!-- ABOUT -->
+        <div id="about" class="card">
+          <div class="section-label">About</div>
+          <div class="section-title">About me</div>
+          <p class="text-small" style="margin-bottom: 6px;">
+            I am a Full Stack Software Developer working at LTIMindtree, where I contribute to “MS Prepaid”, a full-stack Java
+            application that powers prepaid card transactions for Nexi Payments across the Nordics.
+          </p>
+          <p class="text-small" style="margin-bottom: 6px;">
+            Most of my day-to-day work is in the backend: implementing transaction flows, APIs, and batch jobs, and handling
+            integrations in an event-driven architecture. I also work on Angular-based admin tools that help operations teams
+            understand and manage transactions.
+          </p>
+          <p class="text-small">
+            I am early in my career, so I focus on writing clear code, understanding how production systems behave, and learning
+            from more experienced engineers. I am particularly interested in payments/fintech, backend engineering, and using
+            ML/GenAI in practical ways.
+          </p>
+          <div class="pill-row" style="margin-top: 10px;">
+            <span class="pill highlight">Full Stack Developer</span>
+            <span class="pill">Java · Spring Boot · Angular</span>
+            <span class="pill">Payments & BFSI</span>
+            <span class="pill">Event-driven architecture</span>
+            <span class="pill">Machine Learning & GenAI (exposure)</span>
+          </div>
+        </div>
+    
+        <!-- SKILLS -->
+        <div id="skills" class="card">
+          <div class="section-label">Skills</div>
+          <div class="section-title">What I work with</div>
+    
+          <div class="text-small" style="font-weight: 500; margin-top: 4px;">Backend (day-to-day)</div>
+          <ul>
+            <li>Java, Spring Boot, REST APIs, JDBC, MySQL</li>
+            <li>Basic Spring Security, JWT-based authentication, CORS configuration</li>
+            <li>Quartz Scheduler and Spring Batch for scheduled jobs and reporting</li>
+            <li>ISO 8583-based file parsing for offline transaction ingestion and reconciliation</li>
+          </ul>
+    
+          <div class="text-small" style="font-weight: 500; margin-top: 8px;">Frontend</div>
+          <ul>
+            <li>Angular for internal/admin UIs (components, services, routing, reactive forms)</li>
+            <li>HTML, CSS, Bootstrap for layout and styling</li>
+          </ul>
+    
+          <div class="text-small" style="font-weight: 500; margin-top: 8px;">Tools & Collaboration</div>
+          <ul>
+            <li>Git and Git-based workflows, Postman for API testing</li>
+            <li>Basic Linux/terminal usage</li>
+            <li>Agile ceremonies (stand-ups, sprint planning, reviews, retrospectives)</li>
+            <li>Confluence for documentation</li>
+          </ul>
+    
+          <div class="text-small" style="font-weight: 500; margin-top: 8px;">Concepts & Exposure</div>
+          <ul>
+            <li>Event-driven architecture, Axon Framework with CQRS/Event Sourcing (within a team)</li>
+            <li>Machine Learning basics from internship; using GenAI tools for productivity</li>
+          </ul>
+        </div>
+    
+        <!-- PROJECTS -->
+        <div id="projects" class="card">
+          <div class="section-label">Projects</div>
+          <div class="section-title">Selected work</div>
+    
+          <div style="margin-bottom: 8px;">
+            <div class="text-small" style="font-weight: 500;">Vehicle Service Application</div>
+            <div class="text-muted">Web platform to book and manage vehicle services with role-based access.</div>
+            <ul>
+              <li>Built backend APIs in Java Spring Boot and MySQL for bookings, users, and service records.</li>
+              <li>Implemented role-based access control with Spring Security and JWT for customers, service centers, and admins.</li>
+              <li>Developed the frontend in Angular with forms, validation, and responsive layouts.</li>
+              <li>Tested endpoints with Postman and handled basic error and validation cases.</li>
+            </ul>
+            <div class="text-small text-muted">Stack: Java, Spring Boot, Angular, MySQL, Spring Security, JWT</div>
+          </div>
+    
+          <div style="margin-top: 10px;">
+            <div class="text-small" style="font-weight: 500;">IPL Bidding Application</div>
+            <div class="text-muted">Admin tool that simulates IPL-style team bidding and budget allocation.</div>
+            <ul>
+              <li>Implemented core bidding and budget update logic on the backend.</li>
+              <li>Exposed REST APIs to manage teams, players, bidding sessions, and final squads.</li>
+              <li>Used JWT and CORS configuration for secure communication with the Angular frontend.</li>
+              <li>Built admin screens in Angular to manage players, bids, and team compositions.</li>
+            </ul>
+            <div class="text-small text-muted">Stack: Java, Spring Boot, Angular, MySQL, REST APIs, JWT, CORS</div>
+          </div>
+        </div>
+      </section>
+    
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <!-- EXPERIENCE -->
+        <div id="experience" class="sidebar-card">
+          <div class="section-label">Experience</div>
+          <h3>Where I’ve worked</h3>
+    
+          <div class="timeline-item">
+            <div class="timeline-role">Software Engineer</div>
+            <div class="timeline-company">LTIMindtree · Mumbai, India</div>
+            <div class="timeline-meta">Feb 2025 – Present</div>
+            <ul>
+              <li>Working on “MS Prepaid”, a full-stack Java application for prepaid card transactions for Nexi Payments (Nordics).</li>
+              <li>Contribute to transaction flows like load, refund, authorization, and reversal.</li>
+              <li>Help implement and maintain REST APIs in Java + Spring Boot.</li>
+              <li>Work with Axon, CQRS, and Event Sourcing as part of an event-driven architecture.</li>
+              <li>Build scheduled jobs and reports using Quartz Scheduler and Spring Batch.</li>
+              <li>Support ISO 8583-based file parsing and reconciliation with guidance from senior engineers.</li>
+              <li>Help build Angular-based admin portal features and participate in Agile rituals.</li>
+            </ul>
+          </div>
+    
+          <div class="timeline-item">
+            <div class="timeline-role">Machine Learning Intern</div>
+            <div class="timeline-company">HighRadius Corporation</div>
+            <div class="timeline-meta">May 2023 – Nov 2023</div>
+            <ul>
+              <li>Worked on ML-based tools for B2B finance using supervised learning models.</li>
+              <li>Cleaned and prepared datasets for predictive analysis and training.</li>
+              <li>Assisted with evaluating model performance and sharing insights with the team.</li>
+            </ul>
+          </div>
+        </div>
+    
+        <!-- EDUCATION -->
+        <div class="sidebar-card">
+          <div class="section-label">Education</div>
+          <h3>Academic background</h3>
+          <div class="text-small" style="font-weight: 500;">B.Tech in Computer Science</div>
+          <div class="text-small">Kalinga Institute of Industrial Technology (KIIT), Bhubaneswar</div>
+          <div class="timeline-meta">Sep 2020 – Aug 2024 · CGPA: 8.51 / 10.00</div>
+          <p class="text-small" style="margin-top: 6px;">
+            Built a foundation in algorithms, data structures, databases, and software engineering principles,
+            which I now apply to real-world payment systems.
+          </p>
+        </div>
+    
+        <!-- CERTIFICATIONS -->
+        <div class="sidebar-card">
+          <div class="section-label">Certifications</div>
+          <h3>Credentials</h3>
+          <ul>
+            <li>Cisco – Introduction to CyberSecurity</li>
+            <li>Cisco – CCNA Introduction to Networks</li>
+          </ul>
+        </div>
+    
+        <!-- CONTACT -->
+        <div id="contact" class="sidebar-card">
+          <div class="section-label">Contact</div>
+          <h3>Let’s get in touch</h3>
+          <p class="text-small">
+            Open to backend and full stack roles working with Java, Spring Boot, Angular, and related technologies.
+          </p>
+          <div class="contact-grid">
+            <div class="contact-item">
+              <span class="contact-label">Email</span>
+              <span class="contact-value">
+                <a href="mailto:kshitijsrivastav882@gmail.com">kshitijsrivastav882@gmail.com</a>
+              </span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label">Phone</span>
+              <span class="contact-value">+91 9140714339</span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label">GitHub</span>
+              <span class="contact-value">
+                <a href="https://github.com/kksshhiittiijj" target="_blank" rel="noopener noreferrer">github.com/kksshhiittiijj</a>
+              </span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label">LinkedIn</span>
+              <span class="contact-value">
+                <a href="https://www.linkedin.com/in/kshitij-srivastava-6b7373256/" target="_blank" rel="noopener noreferrer">
+                  linkedin.com/in/kshitij-srivastava-6b7373256
+                </a>
+              </span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label">Location</span>
+              <span class="contact-value">Varanasi, Uttar Pradesh, India</span>
+            </div>
+          </div>
+        </div>
+    
+        <footer>
+          © 2025 · Built with HTML & CSS · Kshitij Srivastava
+        </footer>
+      </aside>
+    </main>
+    </div> </body> </html>
+    
